@@ -2,7 +2,6 @@ package com.stepdefinition;
 
 import static io.restassured.RestAssured.given;
 
-import java.io.File;
 import java.util.Map;
 
 import org.junit.Assert;
@@ -66,6 +65,9 @@ public class petstore {
 		userpayload.setPassword(faker.internet().password(6, 10));
 		userpayload.setPhone(faker.phoneNumber().cellPhone());
 			map.put("$username", userpayload.getUsername());
+			map.put("$firstName", userpayload.getFirstName());
+			map.put("$lastName", userpayload.getLastName());
+			map.put("$email", userpayload.getEmail());
 		}else if (requestMethod.equalsIgnoreCase("put")) {
 			userpayload.setFirstName(faker.name().firstName());
 			userpayload.setLastName(faker.name().lastName());
@@ -103,5 +105,20 @@ public class petstore {
 	public static void printresponse() {
 		System.out.println("Response:" + ut.getRes().getBody().prettyPrint());
 	}
-	
+	@Then("I validate {string} value present in field {string}")
+	public void validateTheField(String Expected, String path) throws Exception {
+		String expectedtext = map.get("$" + Expected);
+		System.out.println("ExpectedText: " + expectedtext);
+		if (Expected.length() > 0) {
+			String keyValue = ut.getRes().getBody().jsonPath().get(path).toString();
+			System.out.println("ActualText: " + keyValue);
+			Assert.assertEquals(expectedtext, keyValue.toString());
+		}
+	}
+	@Given("Endpoint Base Path Url {string} for {string} request for invalid UserName")
+	public static void EndpointInvalidUserName(String endpointurl, String requestMethod) {
+		String BaseURL = map.get("$url");
+			String url = BaseURL + endpointurl;
+			ut.setPath(url);
+	}
 }
