@@ -3,8 +3,10 @@ Functional Test Cases:
 
 1. Validate retrieve the user details API
 2. Validate create a new user details API
-3. Validate update the user details and check updated details by retrieving it
-4. Validate deleting the user details and check it is removed by retrieving it
+3. Verify user can able to update pet user FirstName, LastName and Email details and check updated details by retrieving it
+4. Validate deleting the user details
+5. Validate pet user is created without payload
+6. Validate retrieving invalid pet username gives 404 response code
 
 Attached the extent report.
 
