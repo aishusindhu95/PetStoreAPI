@@ -42,15 +42,6 @@ public class Utilities{
 	public void setPath(String path) {
 		Path = path;
 	}
-
-	
-	public static void statusCode(int Expectedstatuscode) {
-		
-		int statusCode = response.getStatusCode();
-		System.out.println("statucCode"+ statusCode);
-		Assert.assertEquals(statusCode, Expectedstatuscode);
-		
-	}
 	
 	public Response getRequestMethod(String path, RequestSpecification spec) {
 			response = spec.get(path);
